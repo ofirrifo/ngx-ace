@@ -18,6 +18,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-ace": [
+        "dist/ngx-ace"
+      ],
+      "ngx-ace/*": [
+        "dist/ngx-ace/*"
+      ]
+    }
   }
 }
