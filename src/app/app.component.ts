@@ -1,4 +1,12 @@
 import { Component } from '@angular/core';
+import {
+  AceChangeSelectionStyleData,
+  AceChangeSessionData,
+  AceCopeData,
+  AceDeltaData,
+  AcePasteData
+} from '../../projects/ngx-ace/src/lib/ace.interface';
+
 
 @Component({
   selector: 'aa-root',
@@ -10,27 +18,28 @@ export class AppComponent {
     console.log(event);
   }
 
-  aceChange(delta: any) {
+  aceChange(delta: AceDeltaData) {
     console.log(delta);
   }
 
-  aceChangeSelectionStyle(obj: any) {
+  aceChangeSelectionStyle(obj: AceChangeSelectionStyleData) {
     console.log(obj);
   }
 
-  aceChangeSession(obj: any) {
+  aceChangeSession(obj: AceChangeSessionData) {
     console.log(obj);
   }
 
-  aceCopy(obj: any) {
+  aceCopy(obj: AceCopeData) {
     console.log(obj);
   }
 
-  acePaste(obj: any) {
+  acePaste(obj: AcePasteData) {
     console.log(obj);
   }
 
   aceFocus(event: Event) {
     console.log(event);
   }
+
 }

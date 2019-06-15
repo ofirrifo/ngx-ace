@@ -3,6 +3,15 @@ import * as ace from 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-github';
+import {
+  AceChangeSelectionStyleData,
+  AceChangeSessionData,
+  AceCopeData,
+  AceDeltaData,
+  AceEditor,
+  AceEditorOptions,
+  AcePasteData
+} from './ace.interface';
 
 
 const THEME = 'ace/theme/github';
@@ -27,21 +36,21 @@ export enum AceEvents {
 export class NgxAceComponent implements OnInit, OnDestroy {
 
   @Output() aceBlur = new EventEmitter<Event>();
-  @Output() aceChange = new EventEmitter<ace.Ace.Delta>();
-  @Output() aceChangeSelectionStyle = new EventEmitter<{ data: string }>();
-  @Output() aceChangeSession = new EventEmitter<{ session: ace.Ace.EditSession, oldSession: ace.Ace.EditSession }>();
-  @Output() aceCopy = new EventEmitter<{ text: string }>();
+  @Output() aceChange = new EventEmitter<AceDeltaData>();
+  @Output() aceChangeSelectionStyle = new EventEmitter<AceChangeSelectionStyleData>();
+  @Output() aceChangeSession = new EventEmitter<AceChangeSessionData>();
+  @Output() aceCopy = new EventEmitter<AceCopeData>();
   @Output() aceFocus = new EventEmitter<Event>();
-  @Output() acePaste = new EventEmitter<{ text: string }>();
+  @Output() acePaste = new EventEmitter<AcePasteData>();
 
-  private codeEditor: ace.Ace.Editor;
+  private codeEditor: AceEditor;
 
   constructor(private elementRef: ElementRef) {
 
   }
 
   ngOnInit() {
-    const editorOptions: Partial<ace.Ace.EditorOptions> = {
+    const editorOptions: Partial<AceEditorOptions> = {
       highlightActiveLine: true
     };
 
@@ -96,7 +105,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted whenever the document is changed.
    * @param delta: Contains a single property, data, which has the delta of changes
    */
-  change(delta: ace.Ace.Delta): void {
+  change(delta: AceDeltaData): void {
     this.aceChange.emit(delta);
   }
 
@@ -104,7 +113,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted when the selection style changes, via Editor.setSelectionStyle().
    * @param obj: Contains one property, data, which indicates the new selection style
    */
-  changeSelectionStyle(obj: { data: string }): void {
+  changeSelectionStyle(obj: AceChangeSelectionStyleData): void {
     this.aceChangeSelectionStyle.emit(obj);
   }
 
@@ -112,7 +121,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted whenever the EditSession changes.
    * @param obj: An object with two properties, oldSession and session, that represent the old and new EditSessions.
    */
-  changeSession(obj: { session: ace.Ace.EditSession, oldSession: ace.Ace.EditSession }): void {
+  changeSession(obj: AceChangeSessionData): void {
     this.aceChangeSession.emit(obj);
   }
 
@@ -120,7 +129,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted when text is copied.
    * @param obj: The copied text
    */
-  copy(obj: { text: string }): void {
+  copy(obj: AceCopeData): void {
     this.aceCopy.emit(obj);
   }
 
@@ -137,9 +146,8 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * @param obj: An object which contains one property, text, that represents the text to be pasted.
    * Editing this property will alter the text that is pasted.
    */
-  paste(obj: { text: string }): void {
+  paste(obj: AcePasteData): void {
     this.acePaste.emit(obj);
   }
-
 
 }
