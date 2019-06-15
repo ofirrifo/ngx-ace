@@ -1,6 +1,23 @@
 {
   "name": "ngx-ace",
   "version": "0.0.4",
+  "description": "Ace editor for Angular",
+  "keywords": [
+    "Angular Ace Editor",
+    "Angular Ace",
+    "Angular Editor"
+  ],
+  "author": "Ofir Fridman",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ofirrifo/ngx-ace.git"
+  },
+  "homepage": "https://github.com/ofirrifo/ngx-ace",
+  "engines": {
+    "node": ">=10.9.0 <13.0.0",
+    "yarn": ">=1.9.0 <2.0.0"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.0.1",
     "@angular/core": "^8.0.1",
