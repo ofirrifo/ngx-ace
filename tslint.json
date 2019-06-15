@@ -12,7 +12,7 @@
     "directive-selector": [
       true,
       "attribute",
-      "aa",
+      "ace",
       "camelCase"
     ],
     "component-selector": [

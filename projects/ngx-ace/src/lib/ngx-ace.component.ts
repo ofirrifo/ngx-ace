@@ -10,7 +10,7 @@ const THEME = 'ace/theme/github';
 const LANG = 'ace/mode/javascript';
 
 @Component({
-  selector: 'aa-ngx-ace',
+  selector: 'ace-editor',
   template: '',
   styles: [':host { display:block;width:100%; }'],
 })
