@@ -8,7 +8,7 @@ Ace is a code editor written in JavaScript with a great performance and have a l
 
 ## Install
 
-`npm i @rifo/ngx-ace`
+`npm i @rifo/ngx-ace ace-builds`
 
 # Original JavaScript Ace Library
 [Ace Playground](https://ace.c9.io/build/kitchen-sink.html)

@@ -8,7 +8,38 @@ Ace is a code editor written in JavaScript with a great performance and have a l
 
 ## Install
 
-`npm i @rifo/ngx-ace`
+`npm i @rifo/ngx-ace ace-builds`
+
+## Add NgxAceModule
+
+```
+import {NgxAceModule} from '@rifo/ngx-ace';
+
+@NgModule({
+  imports: [
+    ...
+    NgxAceModule
+  ],
+  ...
+})
+export class AppModule { }
+
+```
+
+## Use in component
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<ace-editor></ace-editor>`,
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  
+}
+
+```
 
 # Original JavaScript Ace Library
 [Ace Playground](https://ace.c9.io/build/kitchen-sink.html)
