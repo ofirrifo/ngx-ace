@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -12,10 +12,8 @@ import {
   AceEditorOptions,
   AcePasteData
 } from './ace.interface';
+import { aceInputValue } from './decorators/ace-input-value.decorator';
 
-
-const THEME = 'ace/theme/github';
-const LANG = 'ace/mode/javascript';
 
 export enum AceEvents {
   Blur = 'blur',
@@ -35,6 +33,15 @@ export enum AceEvents {
 })
 export class NgxAceComponent implements OnInit, OnDestroy {
 
+  @Input() readOnly = false;
+
+  @aceInputValue('ace/theme/', 'github')
+  @Input()
+  theme: string;
+
+  @aceInputValue('ace/mode/', 'html')
+  @Input() mode: string;
+
   @Output() aceBlur = new EventEmitter<Event>();
   @Output() aceChange = new EventEmitter<AceDeltaData>();
   @Output() aceChangeSelectionStyle = new EventEmitter<AceChangeSelectionStyleData>();
@@ -50,21 +57,29 @@ export class NgxAceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const editorOptions: Partial<AceEditorOptions> = {
-      highlightActiveLine: true
-    };
-
-    this.codeEditor = ace.edit(this.elementRef.nativeElement, editorOptions);
-    this.codeEditor.setTheme(THEME);
-    this.codeEditor.getSession().setMode(LANG);
-    this.codeEditor.setShowFoldWidgets(true); // for the scope fold feature
-
+    this.createAceEditorInstance();
+    this.initAceEditorConfiguration();
     this.initListeners();
   }
 
   ngOnDestroy(): void {
     this.removeListeners();
     this.codeEditor.destroy();
+  }
+
+  private createAceEditorInstance(): void {
+    const editorOptions: Partial<AceEditorOptions> = {
+      highlightActiveLine: true
+    };
+
+    this.codeEditor = ace.edit(this.elementRef.nativeElement, editorOptions);
+  }
+
+  private initAceEditorConfiguration(): void {
+    this.codeEditor.setReadOnly(this.readOnly);
+    this.codeEditor.setTheme(this.theme);
+    this.codeEditor.getSession().setMode(this.mode);
+    this.codeEditor.setShowFoldWidgets(true); // for the scope fold feature
   }
 
   /**
@@ -97,7 +112,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted once the editor has been blurred.
    * @param event: the dom event object
    */
-  blur(event: Event): void {
+  private blur(event: Event): void {
     this.aceBlur.emit(event);
   }
 
@@ -105,7 +120,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted whenever the document is changed.
    * @param delta: Contains a single property, data, which has the delta of changes
    */
-  change(delta: AceDeltaData): void {
+  private change(delta: AceDeltaData): void {
     this.aceChange.emit(delta);
   }
 
@@ -113,7 +128,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted when the selection style changes, via Editor.setSelectionStyle().
    * @param obj: Contains one property, data, which indicates the new selection style
    */
-  changeSelectionStyle(obj: AceChangeSelectionStyleData): void {
+  private changeSelectionStyle(obj: AceChangeSelectionStyleData): void {
     this.aceChangeSelectionStyle.emit(obj);
   }
 
@@ -121,7 +136,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted whenever the EditSession changes.
    * @param obj: An object with two properties, oldSession and session, that represent the old and new EditSessions.
    */
-  changeSession(obj: AceChangeSessionData): void {
+  private changeSession(obj: AceChangeSessionData): void {
     this.aceChangeSession.emit(obj);
   }
 
@@ -129,7 +144,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted when text is copied.
    * @param obj: The copied text
    */
-  copy(obj: AceCopeData): void {
+  private copy(obj: AceCopeData): void {
     this.aceCopy.emit(obj);
   }
 
@@ -137,7 +152,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * Emitted once the editor comes into focus.
    * @param event: the dom event object
    */
-  focus(event: Event): void {
+  private focus(event: Event): void {
     this.aceFocus.emit(event);
   }
 
@@ -146,7 +161,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    * @param obj: An object which contains one property, text, that represents the text to be pasted.
    * Editing this property will alter the text that is pasted.
    */
-  paste(obj: AcePasteData): void {
+  private paste(obj: AcePasteData): void {
     this.acePaste.emit(obj);
   }
 

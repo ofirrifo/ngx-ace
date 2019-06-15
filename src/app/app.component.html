@@ -1,4 +1,7 @@
 <ace-editor
+  [readOnly]="false"
+  [theme]="'dracula'"
+  [mode]="'html'"
 
   (aceBlur)="aceBlur($event)"
   (aceChange)="aceChange($event)"
@@ -8,3 +11,4 @@
   (aceFocus)="aceFocus($event)"
   (acePaste)="acePaste($event)">
 </ace-editor>
+

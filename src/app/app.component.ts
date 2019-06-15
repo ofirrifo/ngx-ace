@@ -8,12 +8,14 @@ import {
 } from '../../projects/ngx-ace/src/lib/ace.interface';
 
 
+
 @Component({
   selector: 'aa-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   aceBlur(event: Event) {
     console.log(event);
   }
