@@ -1,6 +1,6 @@
 {
   "name": "@rifo/ngx-ace",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Ace editor for Angular",
   "keywords": [
     "Angular Ace Editor",
