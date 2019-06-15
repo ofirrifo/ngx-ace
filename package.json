@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build --prod",
     "lintAndBuild:lib": "npm run lint:lib && ng build ngx-ace",
     "build:lib": "ng build ngx-ace",
     "lint:lib": "ng lint ngx-ace",

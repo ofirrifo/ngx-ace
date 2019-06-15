@@ -6,5 +6,31 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'lib-ngx-ace';
+  aceBlur(event: Event) {
+    console.log(event);
+  }
+
+  aceChange(delta: any) {
+    console.log(delta);
+  }
+
+  aceChangeSelectionStyle(obj: any) {
+    console.log(obj);
+  }
+
+  aceChangeSession(obj: any) {
+    console.log(obj);
+  }
+
+  aceCopy(obj: any) {
+    console.log(obj);
+  }
+
+  acePaste(obj: any) {
+    console.log(obj);
+  }
+
+  aceFocus(event: Event) {
+    console.log(event);
+  }
 }
