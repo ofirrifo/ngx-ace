@@ -36,8 +36,6 @@ export class NgxAceComponent implements OnInit, OnDestroy {
 
   private codeEditor: ace.Ace.Editor;
 
-  // private blurCallbackPointer: () => void;
-
   constructor(private elementRef: ElementRef) {
 
   }
@@ -57,6 +55,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.removeListeners();
+    this.codeEditor.destroy();
   }
 
   /**
