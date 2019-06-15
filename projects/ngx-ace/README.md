@@ -1,24 +1,17 @@
-# NgxAce
+# Angular Ace Editor 
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+This library bring the great Ace editor from Cloud9 to Angular
 
-## Code scaffolding
+Ace is a code editor written in JavaScript with a great performance and have a lot of features.
 
-Run `ng generate component component-name --project ngx-ace` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-ace`.
-> Note: Don't forget to add `--project ngx-ace` or else it will be added to the default project in your `angular.json` file. 
+# Getting started
 
-## Build
+## Install
 
-Run `ng build ngx-ace` to build the project. The build artifacts will be stored in the `dist/` directory.
+`npm i @rifo/ngx-ace`
 
-## Publishing
+# Original JavaScript Ace Library
+[Ace Playground](https://ace.c9.io/build/kitchen-sink.html)
 
-After building your library with `ng build ngx-ace`, go to the dist folder `cd dist/ngx-ace` and run `npm publish`.
+[More about Ace](https://github.com/ajaxorg/ace)
 
-## Running unit tests
-
-Run `ng test ngx-ace` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
