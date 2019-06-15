@@ -59,6 +59,9 @@ export class NgxAceComponent implements OnInit, OnDestroy {
     this.removeListeners();
   }
 
+  /**
+   * listen to ace events
+   */
   private initListeners(): void {
     this.codeEditor.on(AceEvents.Blur, this.blur.bind(this));
     this.codeEditor.on(AceEvents.Change, this.change.bind(this));
@@ -69,6 +72,9 @@ export class NgxAceComponent implements OnInit, OnDestroy {
     this.codeEditor.on(AceEvents.Paste, this.paste.bind(this));
   }
 
+  /**
+   * remove listeners
+   */
   private removeListeners(): void {
     this.codeEditor.off(AceEvents.Blur, this.blur);
     this.codeEditor.off(AceEvents.Change, this.change);
@@ -79,30 +85,59 @@ export class NgxAceComponent implements OnInit, OnDestroy {
     this.codeEditor.off(AceEvents.Paste, this.paste);
   }
 
+  /**
+   * Emitted once the editor has been blurred.
+   * @param event: the dom event object
+   */
   blur(event: Event): void {
     this.aceBlur.emit(event);
   }
 
+  /**
+   * Emitted whenever the document is changed.
+   * @param delta: Contains a single property, data, which has the delta of changes
+   */
   change(delta: ace.Ace.Delta): void {
     this.aceChange.emit(delta);
   }
 
+  /**
+   * Emitted when the selection style changes, via Editor.setSelectionStyle().
+   * @param obj: Contains one property, data, which indicates the new selection style
+   */
   changeSelectionStyle(obj: { data: string }): void {
     this.aceChangeSelectionStyle.emit(obj);
   }
 
+  /**
+   * Emitted whenever the EditSession changes.
+   * @param obj: An object with two properties, oldSession and session, that represent the old and new EditSessions.
+   */
   changeSession(obj: { session: ace.Ace.EditSession, oldSession: ace.Ace.EditSession }): void {
     this.aceChangeSession.emit(obj);
   }
 
+  /**
+   * Emitted when text is copied.
+   * @param obj: The copied text
+   */
   copy(obj: { text: string }): void {
     this.aceCopy.emit(obj);
   }
 
+  /**
+   * Emitted once the editor comes into focus.
+   * @param event: the dom event object
+   */
   focus(event: Event): void {
     this.aceFocus.emit(event);
   }
 
+  /**
+   * Emitted when text is pasted.
+   * @param obj: An object which contains one property, text, that represents the text to be pasted.
+   * Editing this property will alter the text that is pasted.
+   */
   paste(obj: { text: string }): void {
     this.acePaste.emit(obj);
   }
