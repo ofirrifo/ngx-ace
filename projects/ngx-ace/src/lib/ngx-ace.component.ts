@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, forwardRef } from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -13,6 +13,7 @@ import {
   AcePasteData
 } from './ace.interface';
 import { aceInputValue } from './decorators/ace-input-value.decorator';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 
 export enum AceEvents {
@@ -29,9 +30,14 @@ export enum AceEvents {
   selector: 'ace-editor',
   template: '',
   styles: [':host { display:block; }'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => NgxAceComponent),
+    multi: true
+  }]
 })
-export class NgxAceComponent implements OnInit, OnDestroy {
+export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Input() readOnly = false;
 
@@ -51,6 +57,9 @@ export class NgxAceComponent implements OnInit, OnDestroy {
   @Output() acePaste = new EventEmitter<AcePasteData>();
 
   private codeEditor: AceEditor;
+  private innerValue: any = '';
+  private onTouchedCallback: () => void;
+  private onChangeCallback: (_: any) => void;
 
   constructor(private elementRef: ElementRef) {
 
@@ -114,6 +123,7 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    */
   private blur(event: Event): void {
     this.aceBlur.emit(event);
+    this.onTouchedCallback();
   }
 
   /**
@@ -122,6 +132,8 @@ export class NgxAceComponent implements OnInit, OnDestroy {
    */
   private change(delta: AceDeltaData): void {
     this.aceChange.emit(delta);
+    const newValue = this.codeEditor.getValue();
+    this.onChangeCallback(newValue);
   }
 
   /**
@@ -165,4 +177,17 @@ export class NgxAceComponent implements OnInit, OnDestroy {
     this.acePaste.emit(obj);
   }
 
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchedCallback = fn;
+  }
+
+  writeValue(newValue: any): void {
+    if (newValue !== this.innerValue) {
+      this.innerValue = newValue;
+    }
+  }
 }
