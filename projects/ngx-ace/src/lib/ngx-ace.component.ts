@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -10,21 +10,14 @@ import {
   AceDeltaData,
   AceEditor,
   AceEditorOptions,
+  AceEvents,
   AcePasteData
 } from './ace.interface';
 import { aceInputValue } from './decorators/ace-input-value.decorator';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-
-export enum AceEvents {
-  Blur = 'blur',
-  Change = 'change',
-  ChangeSelectionStyle = 'changeSelectionStyle',
-  ChangeSession = 'changeSession',
-  Copy = 'copy',
-  Focus = 'focus',
-  Paste = 'paste',
-}
+const noop = () => {
+};
 
 @Component({
   selector: 'ace-editor',
@@ -58,8 +51,8 @@ export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor 
 
   private codeEditor: AceEditor;
   private innerValue: any = '';
-  private onTouchedCallback: () => void;
-  private onChangeCallback: (_: any) => void;
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
 
   constructor(private elementRef: ElementRef) {
 

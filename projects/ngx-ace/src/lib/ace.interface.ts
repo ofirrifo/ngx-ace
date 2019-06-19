@@ -27,6 +27,14 @@ export interface AcePasteData {
   text: string;
 }
 
-
+export enum AceEvents {
+  Blur = 'blur',
+  Change = 'change',
+  ChangeSelectionStyle = 'changeSelectionStyle',
+  ChangeSession = 'changeSession',
+  Copy = 'copy',
+  Focus = 'focus',
+  Paste = 'paste',
+}
 
 
