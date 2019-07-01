@@ -34,7 +34,5 @@ export enum AceEvents {
   ChangeSession = 'changeSession',
   Copy = 'copy',
   Focus = 'focus',
-  Paste = 'paste',
+  Paste = 'paste'
 }
-
-

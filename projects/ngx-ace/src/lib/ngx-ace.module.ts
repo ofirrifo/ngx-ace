@@ -3,8 +3,7 @@ import { NgxAceComponent } from './ngx-ace.component';
 
 @NgModule({
   declarations: [NgxAceComponent],
-  imports: [
-  ],
+  imports: [],
   exports: [NgxAceComponent]
 })
-export class NgxAceModule { }
+export class NgxAceModule {}

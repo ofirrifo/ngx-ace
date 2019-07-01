@@ -7,7 +7,7 @@ export function aceInputValue(prefixPath: string, defaultVal: string) {
       },
       get(): any {
         return this[cachedValueKey] ? this[cachedValueKey] : `${prefixPath}${defaultVal}`;
-      },
+      }
     });
   };
 }
