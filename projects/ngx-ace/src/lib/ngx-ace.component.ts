@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -16,22 +26,23 @@ import {
 import { aceInputValue } from './decorators/ace-input-value.decorator';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-const noop = () => {
-};
+const noop = () => {};
 
 @Component({
   selector: 'ace-editor',
   template: '',
   styles: [':host { display:block; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => NgxAceComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NgxAceComponent),
+      multi: true
+    }
+  ]
 })
-export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
+export class NgxAceComponent
+  implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() readOnly = false;
 
   @aceInputValue('ace/theme/', 'github')
@@ -39,11 +50,14 @@ export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor 
   theme: string;
 
   @aceInputValue('ace/mode/', 'html')
-  @Input() mode: string;
+  @Input()
+  mode: string;
 
   @Output() aceBlur = new EventEmitter<Event>();
   @Output() aceChange = new EventEmitter<AceDeltaData>();
-  @Output() aceChangeSelectionStyle = new EventEmitter<AceChangeSelectionStyleData>();
+  @Output() aceChangeSelectionStyle = new EventEmitter<
+    AceChangeSelectionStyleData
+  >();
   @Output() aceChangeSession = new EventEmitter<AceChangeSessionData>();
   @Output() aceCopy = new EventEmitter<AceCopeData>();
   @Output() aceFocus = new EventEmitter<Event>();
@@ -54,9 +68,7 @@ export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor 
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
 
-  constructor(private elementRef: ElementRef) {
-
-  }
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
     this.createAceEditorInstance();
@@ -90,7 +102,10 @@ export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor 
   private initListeners(): void {
     this.codeEditor.on(AceEvents.Blur, this.blur.bind(this));
     this.codeEditor.on(AceEvents.Change, this.change.bind(this));
-    this.codeEditor.on(AceEvents.ChangeSelectionStyle, this.changeSelectionStyle.bind(this));
+    this.codeEditor.on(
+      AceEvents.ChangeSelectionStyle,
+      this.changeSelectionStyle.bind(this)
+    );
     this.codeEditor.on(AceEvents.ChangeSession, this.changeSession.bind(this));
     this.codeEditor.on(AceEvents.Copy, this.copy.bind(this));
     this.codeEditor.on(AceEvents.Focus, this.focus.bind(this));
@@ -103,7 +118,10 @@ export class NgxAceComponent implements OnInit, OnDestroy, ControlValueAccessor 
   private removeListeners(): void {
     this.codeEditor.off(AceEvents.Blur, this.blur);
     this.codeEditor.off(AceEvents.Change, this.change);
-    this.codeEditor.off(AceEvents.ChangeSelectionStyle, this.changeSelectionStyle);
+    this.codeEditor.off(
+      AceEvents.ChangeSelectionStyle,
+      this.changeSelectionStyle
+    );
     this.codeEditor.off(AceEvents.ChangeSession, this.changeSession);
     this.codeEditor.off(AceEvents.Copy, this.copy);
     this.codeEditor.off(AceEvents.Focus, this.focus);
