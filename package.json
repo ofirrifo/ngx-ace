@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build:example": "ng build --prod",
+    "build:example": "ng build --prod --build-optimizer",
     "lintAndBuild:lib": "npm run lint:lib && ng build ngx-ace",
-    "build:lib": "ng build ngx-ace",
+    "build:lib": "ng build ngx-ace --build-optimizer",
     "lint:lib": "ng lint ngx-ace",
     "build:lib-and-example": "npm run lintAndBuild:lib && npm run build:example",
     "test": "ng test",
